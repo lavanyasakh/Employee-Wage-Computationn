@@ -35,5 +35,9 @@ do
 	EmpCheck=$(( RANDOM%3  ))
 	EmpHrs="$(GetWorkHrs  $EmpCheck)"
 	WorkHrs=$(($WorkHrs+$EmpHrs))
+	DailyWage=$(($EMP_RATE_PER_HR*$EmpHrs))
+	EmpWage[WorkDays]=$DailyWage
+	
 done
 TotalSalary=$(( $EMP_RATE_PER_HR*$WorkHrs ))
+echo ${EmpWage[@]}
