@@ -36,8 +36,9 @@ do
 	EmpHrs="$(GetWorkHrs  $EmpCheck)"
 	WorkHrs=$(($WorkHrs+$EmpHrs))
 	DailyWage=$(($EMP_RATE_PER_HR*$EmpHrs))
-	EmpWage[WorkDays]=$DailyWage
+	TotalSalary=$(($EMP_RATE_PER_HR*$WorkHrs))
+	TotalWage[TotalSalary]=$DailyWage
 	
 done
-TotalSalary=$(( $EMP_RATE_PER_HR*$WorkHrs ))
-echo ${EmpWage[@]}
+echo ${TotalWage[@]}
+echo ${!TotalWage[@]}
