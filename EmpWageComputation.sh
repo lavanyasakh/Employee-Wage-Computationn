@@ -27,7 +27,8 @@ function GetWorkHrs() {
 	echo $EmpHrs
 }
 		
-
+declare -A EmpDailyWage
+declare -A EmpTotalWage
 
 while [ $WorkDays -lt $MAX_NO_OF_WORKING_DAYS  -a  $WorkHrs -lt $MAX_WORK_HRS_IN_MONTH  ]
 do
@@ -36,9 +37,12 @@ do
 	EmpHrs="$(GetWorkHrs  $EmpCheck)"
 	WorkHrs=$(($WorkHrs+$EmpHrs))
 	DailyWage=$(($EMP_RATE_PER_HR*$EmpHrs))
-	TotalSalary=$(($EMP_RATE_PER_HR*$WorkHrs))
-	TotalWage[TotalSalary]=$DailyWage
+	EmpDailyWage[$WorkDays]=$DailyWage
 	
 done
-echo ${TotalWage[@]}
-echo ${!TotalWage[@]}
+TotalSalary=$(($EMP_RATE_PER_HR*$WorkHrs))
+EmpTotalWage[$WorkDays]=$TotalSalary
+echo "Employee Daily Wages are::  " ${EmpDailyWage[@]}
+echo "Employee working days are:: "${!EmpDailyWage[@]}
+echo "Employee total wage is:: "${EmpTotalWage[@]}
+echo "Employee total work days:: "${!EmpTotalWage[@]}
